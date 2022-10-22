@@ -39,7 +39,10 @@
 							"match": true
 						}
 					}
-				]
+				],
+				"constructor-super": "warn",
+				"no-self-assign": "warn",
+				"no-unreachable": "warn"
 			}
 		},
 		{
