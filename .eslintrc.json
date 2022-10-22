@@ -39,7 +39,17 @@
 							"match": true
 						}
 					}
-				]
+				],
+				"space-infix-ops" :"error",
+				"prefer-const" :"error",
+				"space-before-function-paren": "error",
+				"prefer-arrow-callback" :"error",
+				"keyword-spacing" : "error",
+				"no-trailing-spaces" : "error",
+				"no-multiple-empty-lines" :"error",
+				"id-length" :"warn",
+				"no-underscore-dangle": "warn"
+
 			}
 		},
 		{
