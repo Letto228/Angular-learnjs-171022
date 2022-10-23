@@ -39,6 +39,13 @@
 							"match": true
 						}
 					}
+				],
+				"operator-linebreak": [
+					"error",
+					"before"
+				],
+				"object-property-newline": [
+					"error"
 				]
 			}
 		},
