@@ -39,7 +39,12 @@
 							"match": true
 						}
 					}
-				]
+				],
+                "default-case": "error",
+				"block-spacing": "error",
+				"complexity": "error",
+                "getter-return": "error",
+				"dot-location": "error"
 			}
 		},
 		{
