@@ -1,17 +1,4 @@
-<!-- <h1>{{title}}</h1> -->
-<app-header
-	(click)="onAppHeaderClick()"
-></app-header>
-<input (keydown.shift)="onKeydown($event)" (keydown)="onKeydown($event)">
-<!-- <h1>{{window}}</h1> -->
-<!-- <h1 z10>
-	Hello app component
-</h1>
-
-<div>
-	<h1>
-		Hello app component
-	</h1>
-</div> -->
-
-<!-- <app-card (click)="onClick()" (buy)="onBuy()"></app-card> -->
+<app-header (click)="onAppHeaderClick()"></app-header>
+<div class="container">
+	<app-products-list></app-products-list>
+</div>
