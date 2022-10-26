@@ -1,0 +1,52 @@
+<mat-card class="product-card">
+  <mat-card-header>
+    <mat-card-title>{{ cardData.name }}</mat-card-title>
+  </mat-card-header>
+
+  <div id="carouselExampleControls" class="carousel carousel-dark slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img [src]="cardData.images[0].url" class="d-block w-100" alt="...">
+      </div>
+      <div *ngFor="let image of imagesWithoutFirst" class="carousel-item">
+        <img [src]="image.url" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <mat-card-content>
+    <p class="product-card__description">
+      {{ cardData.name }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <div class="product-card__bottom-details">
+      <div class="product-card__bottom-column">
+        <div class="product-card__price label">
+          <span class="label">Цена: </span> 
+          <span class="product-card__price product-card__price_number">{{ cardData.price }}$</span>
+        </div>
+        <div class="product-card__rating">
+          <span class="label">Рейтинг:</span>
+          {{ cardData.rating }}
+        </div>
+        <div class="product-card__feedback">
+          <span class="label">Отзывы:</span>
+          {{ cardData.feedbacksCount }}
+        </div>
+      </div>
+      <div class="product-card__buttons">
+        <button mat-raised-button color="primary" (click)="addToCart($event)">В корзину</button>
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>
