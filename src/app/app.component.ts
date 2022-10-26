@@ -33,4 +33,8 @@ export class AppComponent {
 	onAppHeaderClick() {
 		console.log('onAppHeaderClick');
 	}
+
+	onAppProductClick() {
+		console.log('onAppProductClick');
+	}
 }

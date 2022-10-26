@@ -1,0 +1,25 @@
+<mat-card class="example-card">
+	<mat-card-header>
+		<div
+			mat-card-avatar
+			style="background-image: url({{ card.images[0].url }})"
+			class="example-header-image"
+		></div>
+		<mat-card-title>{{ card.name }}</mat-card-title>
+		<mat-card-subtitle>{{ card.subCategory }}</mat-card-subtitle>
+	</mat-card-header>
+	<h4>Рейтинг: {{ card.rating }} из 5</h4>
+	<img mat-card-image alt="card.name" [src]="card.images[1].url" />
+	<mat-card-content>
+		<p>
+			Самый лучший планшет из всех!<br />
+			Срочно всем купить и наслаждаться!!!
+		</p>
+		<h4>Отзывы: {{ card.feedbacksCount }}</h4>
+		<h4>Цена: {{ card.price }}</h4>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-button (click)="onBuyClick($event)">КУПИТЬ</button>
+		<button mat-button>ПОДЕЛИТЬСЯ</button>
+	</mat-card-actions>
+</mat-card>
