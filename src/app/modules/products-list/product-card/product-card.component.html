@@ -2,14 +2,14 @@
 	<mat-card-header>
 		<div
 			mat-card-avatar
-			style="background-image: url({{ card.images[0].url }})"
+			[style.background-image]="getCardIcon(0, 'url')"
 			class="example-header-image"
 		></div>
 		<mat-card-title>{{ card.name }}</mat-card-title>
 		<mat-card-subtitle>{{ card.subCategory }}</mat-card-subtitle>
 	</mat-card-header>
 	<h4>Рейтинг: {{ card.rating }} из 5</h4>
-	<img mat-card-image alt="card.name" [src]="card.images[1].url" />
+	<img mat-card-image alt="card.name" [src]="getCardIcon(1)" />
 	<mat-card-content>
 		<p>
 			Самый лучший планшет из всех!<br />

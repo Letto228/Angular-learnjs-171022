@@ -9,10 +9,18 @@ import { productMock } from '../../../shared/products/product.mock';
 export class ProductCardComponent {
 	readonly card = productMock;
 
-	constructor() {}
-
 	onBuyClick(event: Event) {
 		console.log('onBuyClick');
 		event.stopPropagation();
+	}
+
+	getCardIcon(num: number, url: string = '') {
+		if (url == 'url') {
+			console.log('url('+this.card.images[num].url+')'); 
+			return 'url('+this.card.images[num].url+')'
+		} else {
+			console.log(this.card.images[num].url) 
+			return this.card.images[num].url
+		}	
 	}
 }
