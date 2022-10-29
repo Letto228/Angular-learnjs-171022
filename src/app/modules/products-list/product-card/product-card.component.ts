@@ -14,13 +14,11 @@ export class ProductCardComponent {
 		event.stopPropagation();
 	}
 
-	getCardIcon(num: number, url: string = '') {
-		if (url == 'url') {
-			console.log('url('+this.card.images[num].url+')'); 
-			return 'url('+this.card.images[num].url+')'
-		} else {
-			console.log(this.card.images[num].url) 
-			return this.card.images[num].url
-		}	
+	getFirstCardImgUrl(): string {
+		return this.card.images[0].url;
+	}
+
+	getFirstCardImgStyleUrl(): string {
+		return `url(${this.getFirstCardImgUrl()})`;
 	}
 }
