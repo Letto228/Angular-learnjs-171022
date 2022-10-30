@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct } from '../../../shared/products/product.interface';
-import { productMock } from '../../../shared/products/product.mock';
 
 @Component({
 	selector: 'app-product-card',
@@ -8,12 +7,16 @@ import { productMock } from '../../../shared/products/product.mock';
 	styleUrls: ['./product-card.component.less'],
 })
 export class ProductCardComponent {
-	readonly product = productMock;
+	@Input() product: IProduct | undefined;
 
-	onProductBuy(event: Event) {
-		event.stopPropagation();
+	@Output() productBuy = new EventEmitter<object>();
+    
+    getFirstFoto() {
+		return this.product?.images[0].url
+	}
 
-		console.log('Buy');
+	onProductBuy() {
+		this.productBuy.emit({ id: this.product?._id, name: this.product?.name })
 	}
 
 	isStarActive(starIndex: number): boolean {
