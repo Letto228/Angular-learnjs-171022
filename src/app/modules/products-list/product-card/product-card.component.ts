@@ -8,12 +8,17 @@ import { productMock } from '../../../shared/products/product.mock';
 	styleUrls: ['./product-card.component.less'],
 })
 export class ProductCardComponent {
-	readonly product = productMock;
+	@Input() product: IProduct | undefined;
+  @Output() buyProductEvent = new EventEmitter<string>();
+
+  get productImage() {
+    return this.product?.images[0]?.url
+  }
 
 	onProductBuy(event: Event) {
 		event.stopPropagation();
 
-		console.log('Buy');
+    this.buyProductEvent.emit(this.product?._id);
 	}
 
 	isStarActive(starIndex: number): boolean {

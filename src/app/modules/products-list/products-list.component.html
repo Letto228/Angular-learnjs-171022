@@ -1,4 +1,4 @@
 <div class="container">
-        <app-product-card class="product"></app-product-card>
-        <app-product-card class="product"></app-product-card>
+    <app-product-card [product]="product" class="product" (buyProductEvent)="getProductId($event)"></app-product-card>
+    <app-product-card [product]="product" class="product" (buyProductEvent)="getProductId($event)"></app-product-card>
 </div>
