@@ -11,7 +11,7 @@ export class ProductCardComponent {
 	@Input() product: IProduct | undefined;
   @Output() buyProductEvent = new EventEmitter<string>();
 
-  get productImage() {
+  get productImage(): string | undefined {
     return this.product?.images[0]?.url
   }
 
