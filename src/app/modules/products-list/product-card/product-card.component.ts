@@ -1,3 +1,4 @@
+import { _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct } from '../../../shared/products/product.interface';
 
@@ -9,14 +10,15 @@ import { IProduct } from '../../../shared/products/product.interface';
 export class ProductCardComponent {
 	@Input() product: IProduct | undefined;
 
-	@Output() productBuy = new EventEmitter<object>();
+	@Output() productBuy = new EventEmitter<any>();
     
     getFirstFoto() {
 		return this.product?.images[0].url
 	}
 
-	onProductBuy() {
-		this.productBuy.emit({ id: this.product?._id, name: this.product?.name })
+	onProductBuy(event: Event) {
+		event.stopPropagation();
+		this.productBuy.emit({ this: this.product?._id })
 	}
 
 	isStarActive(starIndex: number): boolean {
