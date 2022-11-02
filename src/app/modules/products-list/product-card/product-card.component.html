@@ -1,0 +1,29 @@
+<mat-card class="card" (click)="onAddShoppingCart($event)">
+    <mat-card-header>      
+      <mat-card-title>{{product.name}}</mat-card-title>
+      <mat-card-subtitle>{{product.price}} $</mat-card-subtitle>
+    </mat-card-header>    
+    <img mat-card-image [src]="product.images[0].url" alt="Product photo">
+    <mat-card-content>
+      <p>
+        Планшет Dexp Ursus S670 MIX станет незаменимым аппаратом для тех, кто не может жить без Интернета. Модель с SIM-картой и поддержкой модуля 3G обеспечивает свободный доступ к сети, где бы вы ни находились. Аккумулятор устройства обладает емкостью 3000 мАч. 
+      </p>
+      <button mat-icon-button>
+        <mat-icon>
+          chevron_right
+        </mat-icon>
+      </button>
+
+    </mat-card-content>    
+    <div class="feedback">      
+        Отзывы: {{product.feedbacksCount}}        
+    </div>
+    <mat-card-actions class="addShoppingCart">      
+      <button mat-icon-button (click)="onAddShoppingCart; $event.stopPropagation()">
+        <mat-icon>
+          add_shopping_cart
+        </mat-icon>      
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  
