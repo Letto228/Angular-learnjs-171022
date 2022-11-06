@@ -10,15 +10,15 @@ import { IProduct } from '../../../shared/products/product.interface';
 export class ProductCardComponent {
 	@Input() product: IProduct | undefined;
 
-	@Output() productBuy = new EventEmitter<any>();
+	@Output() productBuy = new EventEmitter<string | undefined>();
     
-    getFirstFoto() {
+    getFirstFoto(): string | undefined {
 		return this.product?.images[0].url
 	}
 
 	onProductBuy(event: Event) {
 		event.stopPropagation();
-		this.productBuy.emit({ this: this.product?._id })
+		this.productBuy.emit(this.product?._id)
 	}
 
 	isStarActive(starIndex: number): boolean {
