@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../shared/products/product.interface';
 import { productMock } from '../../shared/products/product.mock';
-import { productsMock } from 'src/app/shared/products/products.mock';
+import { productsMock } from '../../shared/products/products.mock';
 
 @Component({
 	selector: 'app-products-list',

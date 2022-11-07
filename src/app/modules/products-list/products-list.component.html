@@ -7,20 +7,70 @@
         </div>
 </ng-template> -->
 <!-- <ng-template [ngIf]="product && [product, product]" [ngIfElse]="loader" let-defaultContext let-products="ngIf" let-name="toString"> -->
-<ng-template 
+<!-- <ng-template 
         let-products
         [ngIf]="product && [product, product]"
         [ngIfElse]="loader"
->
+> -->
         <!-- {{defaultContext === products}} -->
-        
-        <div class="container">
+        <!-- <div class="container">
                 <app-product-card class="product" [product]="products[0]"></app-product-card>
                 <app-product-card class="product" [product]="products[1]"></app-product-card>
+        </div> -->
+<!-- </ng-template> -->
+<div *ngIf="products; else loader" class="container">
+    <ng-container *appPagination="
+        let productsGroup of products;
+        elementsSize: 4;
+        let allIndexes = allIndexes;
+        let activeIndex = index;
+        let nextItem = nextItem;
+        let backItem = backItem;
+        let selectIndex = selectIndex
+    ">
+        <div class="card-container">
+            <app-product-card
+                class="product"
+                [product]="productsGroup[0]"
+            ></app-product-card>
+            <app-product-card
+                class="product"
+                [product]="productsGroup[1]"
+            ></app-product-card>
+            <app-product-card
+                class="product"
+                [product]="productsGroup[2]"
+            ></app-product-card>
+            <app-product-card
+                class="product"
+                [product]="productsGroup[3]"
+            ></app-product-card>
         </div>
-        
-</ng-template>
-<ng-template [appPagination]="products" [elementPage]="3"></ng-template> 
+    
+        <div class="pagination-container">
+            <button mat-icon-button (click)="backItem()">
+                <mat-icon>
+                    chevron_left
+                </mat-icon>
+            </button>
+            <button
+                mat-icon-button
+                *ngFor="let index of allIndexes"
+                class="pagination__page-number"
+                [class.pagination__page-number_active]="activeIndex === index"
+                (click)="selectIndex(index)"
+            >
+                {{index + 1}}
+            </button>
+            <button mat-icon-button (click)="nextItem()">
+                <mat-icon>
+                    chevron_right
+                </mat-icon>
+            </button>
+        </div>
+    </ng-container>
+</div>
+
 <ng-template #loader>
-        <mat-spinner></mat-spinner>
+        <mat-spinner class="loader"></mat-spinner>
 </ng-template>
