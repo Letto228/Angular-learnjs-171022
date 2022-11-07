@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgIfModule } from '../../shared/ng-if/ng-if.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
+import { PaginationModule } from 'src/app/shared/pagination/pagination.module';
 
 @NgModule({
 	declarations: [ProductsListComponent, ProductCardComponent],
@@ -19,6 +20,7 @@ import { CarouselModule } from '../../shared/carousel/carousel.module';
 		NgIfModule,
 		MatProgressSpinnerModule,
 		CarouselModule,
+		PaginationModule
 	],
 	exports: [ProductsListComponent],
 })

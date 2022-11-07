@@ -13,12 +13,14 @@
         [ngIfElse]="loader"
 >
         <!-- {{defaultContext === products}} -->
+        
         <div class="container">
                 <app-product-card class="product" [product]="products[0]"></app-product-card>
                 <app-product-card class="product" [product]="products[1]"></app-product-card>
         </div>
+        
 </ng-template>
-
+<ng-template [appPagination]="products" [elementPage]="3"></ng-template> 
 <ng-template #loader>
         <mat-spinner></mat-spinner>
 </ng-template>
