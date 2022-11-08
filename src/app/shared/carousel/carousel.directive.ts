@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
 interface ICarouselContext<T> {
 	$implicit: T;
 	index: number;
-	appCarousel: Array<T[]>;
+	appCarousel: Array<T>;
 	next: () => void;
 	back: () => void;
 }

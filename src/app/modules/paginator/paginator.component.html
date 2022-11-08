@@ -1,0 +1,21 @@
+<div class="paginator">
+  <button mat-icon-button>
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <div class="paginator__numbers">
+    <div class="paginator__number">1</div>
+    <div class="paginator__number">2</div>
+    <div class="paginator__number">3</div>
+  </div>
+  <button mat-icon-button>
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+
+  <div class="paginator__page-number-select">
+    <mat-form-field appearance="fill">
+      <mat-select [(value)]="selectedPageSize">
+        <mat-option [value]="option" *ngFor="let option of pageSizeArray">{{ option }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
