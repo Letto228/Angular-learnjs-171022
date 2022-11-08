@@ -1,29 +1,45 @@
-<mat-card class="card" (click)="onAddShoppingCart($event)">
-    <mat-card-header>      
-      <mat-card-title>{{product.name}}</mat-card-title>
-      <mat-card-subtitle>{{product.price}} $</mat-card-subtitle>
-    </mat-card-header>    
-    <img mat-card-image [src]="product.images[0].url" alt="Product photo">
-    <mat-card-content>
-      <p>
-        Планшет Dexp Ursus S670 MIX станет незаменимым аппаратом для тех, кто не может жить без Интернета. Модель с SIM-картой и поддержкой модуля 3G обеспечивает свободный доступ к сети, где бы вы ни находились. Аккумулятор устройства обладает емкостью 3000 мАч. 
-      </p>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{product.name}}</mat-card-title>
+    <mat-card-subtitle>{{product.price}} $</mat-card-subtitle>
+  </mat-card-header>
+  <div class="galerey">
+      <button mat-icon-button>
+        <mat-icon>
+          chevron_left
+        </mat-icon>
+      </button>
+      <img mat-card-image [src]="product.images[0].url" alt="Product photo">
       <button mat-icon-button>
         <mat-icon>
           chevron_right
         </mat-icon>
       </button>
-
-    </mat-card-content>    
-    <div class="feedback">      
-        Отзывы: {{product.feedbacksCount}}        
+  </div>
+  <div>
+    <p>
+      Отзывы: {{product.feedbacksCount}}
+    </p>
+    <div class="raiting">
+      Рейтинг:
+      <mat-icon [class.star-active]="isStarActive(1)">
+        star
+      </mat-icon>
+      <mat-icon [class.star-active]="isStarActive(2)">
+        star
+      </mat-icon>
+      <mat-icon [class.star-active]="isStarActive(3)">
+        star
+      </mat-icon>
+      <mat-icon [class.star-active]="isStarActive(4)">
+        star
+      </mat-icon>
+      <mat-icon [class.star-active]="isStarActive(5)">
+        star
+      </mat-icon>
     </div>
-    <mat-card-actions class="addShoppingCart">      
-      <button mat-icon-button (click)="onAddShoppingCart; $event.stopPropagation()">
-        <mat-icon>
-          add_shopping_cart
-        </mat-icon>      
-      </button>
-    </mat-card-actions>
-  </mat-card>
-  
+  </div>
+  <mat-card-actions class="mat-card-actions-align-end">
+    <button mat-button (click)="onProductBuy($event)">BUY</button>
+  </mat-card-actions>
+</mat-card>

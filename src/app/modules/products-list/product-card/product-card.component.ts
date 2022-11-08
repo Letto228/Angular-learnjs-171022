@@ -6,18 +6,16 @@ import { productMock } from '../../../shared/products/product.mock';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.less']
 })
-export class ProductCardComponent implements OnInit {
-
-  constructor() { }
+export class ProductCardComponent {
 
   readonly product = productMock;
 
-  onAddShoppingCart(event: Event) {
+  onProductBuy(event: Event) {
 		event.stopPropagation();
 		console.log('addShoppingCart');
 	}
 
-  ngOnInit(): void {
-  }
-
+  isStarActive(starIndex: number): boolean {
+		return Boolean(this.product && this.product.rating >= starIndex);
+	}
 }
