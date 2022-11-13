@@ -15,7 +15,7 @@ interface ICarouselContext<T> {
 	selector: '[appCarousel]',
 })
 export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
-	@Input() appCarouselElementsSize: number = 1;
+	@Input() appCarouselElementsSize!: number;
 	@Input() appCarouselOf: T[] | undefined | null;
 
 	private groupedItems: Array<T[]> | T[] = [];;
@@ -43,8 +43,6 @@ export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
 	}
 
 	ngOnInit() {
-		console.log(this.appCarouselOf);
-
 		this.listenCurrentIndexChange();
 	}
 
@@ -106,15 +104,12 @@ export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
 
 	private next() {
 		const nextIndex = this.currentIndex$.value + 1;
-		console.log(nextIndex);
-		console.log(this.groupedItems);
-
 
 		if (!this.appCarouselOf?.length) {
 			return;
 		}
 
-		this.currentIndex$.next(nextIndex < this.appCarouselOf?.length ? nextIndex : 0);
+		this.currentIndex$.next(nextIndex < this.groupedItems?.length ? nextIndex : 0);
 	}
 
 	private back() {
@@ -124,7 +119,7 @@ export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
 			return;
 		}
 
-		this.currentIndex$.next(prevIndex >= 0 ? prevIndex : this.appCarouselOf?.length - 1);
+		this.currentIndex$.next(prevIndex >= 0 ? prevIndex : this.getGroupedItems?.length - 1);
 	}
 
 	private selectIndex(index: number) {

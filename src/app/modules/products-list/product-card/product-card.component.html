@@ -4,8 +4,7 @@
       <mat-card-subtitle>{{price}} $</mat-card-subtitle>
     </mat-card-header>
     <div class="galerey">
-      <!-- <ng-template let-image let-next="next" let-back="back" [appCarouselOf]="product?.images"> -->
-      <ng-container *appCarousel="let image of product.images; let next = next; let back = back">
+      <ng-container *appCarousel="let image of product.images; elementsSize: 1; let next = next; let back = back">
         <button mat-icon-button (click)="back()">
           <mat-icon>
             chevron_left
@@ -17,7 +16,6 @@
             chevron_right
           </mat-icon>
         </button>
-      <!-- </ng-template> -->
       </ng-container>
     </div>
     <div>

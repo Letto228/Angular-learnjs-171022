@@ -12,6 +12,5 @@ export class ProductsListComponent implements OnInit {
 
 	ngOnInit() {
 		this.products = productsMock;
-		console.log(this.products);
 	}
 }
