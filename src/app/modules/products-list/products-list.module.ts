@@ -9,7 +9,7 @@ import { NgIfModule } from '../../shared/ng-if/ng-if.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { MatSelectModule } from '@angular/material/select';
-import { PaginatorModule } from '../paginator/paginator.module';
+import { PaginatorModule } from '../../shared/paginator/paginator.module';
 
 @NgModule({
 	declarations: [ProductsListComponent, ProductCardComponent],
@@ -26,4 +26,4 @@ import { PaginatorModule } from '../paginator/paginator.module';
 	],
 	exports: [ProductsListComponent],
 })
-export class ProductsListModule {}
+export class ProductsListModule { }

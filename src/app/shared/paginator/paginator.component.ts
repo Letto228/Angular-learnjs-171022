@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, ViewContainerRef, ContentChild } from '@angular/core';
 import { IProduct } from 'src/app/shared/products/product.interface';
 
 @Component({
@@ -7,13 +7,12 @@ import { IProduct } from 'src/app/shared/products/product.interface';
   styleUrls: ['./paginator.component.less']
 })
 export class PaginatorComponent implements OnInit {
-  @Input() productListTemplate: TemplateRef<IProduct[]> | undefined; 
+  @Input() products: IProduct[] | undefined;
+
   pageSizeArray: string[] = ['5', '10', '20'];
-	selectedPageSize: string = '5';
+  selectedPageSize: string = '5';
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.productListTemplate);
-  }
+  ngOnInit(): void { }
 }

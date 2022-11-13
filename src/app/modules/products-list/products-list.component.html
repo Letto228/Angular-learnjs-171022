@@ -1,30 +1,16 @@
-<!-- <ng-template [ngIf]="product" [ngIfThen]="productsList" [ngIfElse]="loader"></ng-template>
-
-<ng-template #productsList>
-        <div class="container">
-                <app-product-card class="product" [product]="product"></app-product-card>
-                <app-product-card class="product" [product]="product"></app-product-card>
-        </div>
-</ng-template> -->
-<!-- <ng-template [ngIf]="product && [product, product]" [ngIfElse]="loader" let-defaultContext let-products="ngIf" let-name="toString"> -->
-<ng-template let-pageProducts let-pageIndex="index" let-pageSize="pageSize" let-next="next" let-back="back"
-  [appPaginator]="products"
->
-  {{ pageProducts.length }}
-  <!-- [ngIf]="products"
-    [ngIfElse]="loader" -->
-    <!-- {{defaultContext === products}} -->
-    
-  <app-paginator></app-paginator>
-  <div class="container">
-    <div *ngFor="let product of pageProducts">
-      <app-product-card class="product" [product]="product"></app-product-card>
-      <!-- <app-product-card class="product" [product]="product"></app-product-card> -->
+<app-paginator [productListTemplate]="productList" [products]="products" >
+  <ng-template>
+    <div class="container">
+      <div *ngFor="let product of products">
+        <app-product-card class="product" [product]="product"></app-product-card>
+      </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</app-paginator>
 
 <ng-template #loader>
   <mat-spinner></mat-spinner>
 </ng-template>
+
+
 

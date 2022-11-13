@@ -1,31 +1,24 @@
-import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
 
 interface ICarouselContext<T> {
-	$implicit: T;
+	$implicit: T | T[];
 	index: number;
-	appCarousel: Array<T>;
+	allIndexes: number[];
+	appCarouselOf: T[];
 	next: () => void;
 	back: () => void;
+	selectIndex?: (index: number) => void;
 }
 
 @Directive({
 	selector: '[appCarousel]',
 })
-export class CarouselDirective<T> implements OnInit, OnDestroy {
-	@Input() set appCarousel(items: T[] | undefined) {
-		if (!items?.length) {
-			this.viewContainer.clear();
+export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
+	@Input() appCarouselElementsSize: number = 1;
+	@Input() appCarouselOf: T[] | undefined | null;
 
-			return;
-		}
-
-		this.items = items;
-
-		this.currentIndex$.next(0);
-	}
-
-	private items: T[] = [];
+	private groupedItems: Array<T[]> | T[] = [];;
 
 	private readonly currentIndex$ = new BehaviorSubject<number>(0);
 	private readonly destroy$ = new Subject<void>();
@@ -33,9 +26,25 @@ export class CarouselDirective<T> implements OnInit, OnDestroy {
 	constructor(
 		private readonly viewContainer: ViewContainerRef,
 		private readonly template: TemplateRef<ICarouselContext<T>>,
-	) {}
+	) { }
+
+	ngOnChanges({ appCarouselOf, elementsSize }: SimpleChanges) {
+		if (appCarouselOf || elementsSize) {
+			if (!this.appCarouselOf?.length) {
+				this.viewContainer.clear();
+
+				return;
+			}
+
+			this.groupedItems = this.getGroupedItems(this.appCarouselOf);
+			this.currentIndex$.next(0);
+		}
+
+	}
 
 	ngOnInit() {
+		console.log(this.appCarouselOf);
+
 		this.listenCurrentIndexChange();
 	}
 
@@ -44,40 +53,81 @@ export class CarouselDirective<T> implements OnInit, OnDestroy {
 		this.destroy$.complete();
 	}
 
+	private getGroupedItems(items: T[]): Array<T[]> | T[] {
+		return this.appCarouselElementsSize <= 1
+			? items
+			: this.groupingItemsByElementsSize(items, this.appCarouselElementsSize);
+	}
+
+	private groupingItemsByElementsSize<T>(items: T[], elementsSize: number): Array<T[]> {
+		return items.reduce(
+			(groupedItems: Array<T[]>, item: T) => {
+				const groupedItemsLastIndex = groupedItems.length - 1;
+
+				if (groupedItems[groupedItemsLastIndex].length < elementsSize) {
+					groupedItems[groupedItemsLastIndex].push(item);
+
+					return groupedItems;
+				}
+
+				return [...groupedItems, [item]];
+			},
+			[[]],
+		);
+	}
+
 	private listenCurrentIndexChange() {
 		this.currentIndex$
 			.pipe(
-				map(currentIndex => this.getCurrentContext(currentIndex)),
+				map(index => this.getCurrentContext(index, this.groupedItems)),
 				takeUntil(this.destroy$),
 			)
 			.subscribe(context => {
-				console.log(context);
 				this.viewContainer.clear();
 				this.viewContainer.createEmbeddedView(this.template, context);
 			});
 	}
 
-	private getCurrentContext(currentIndex: number): ICarouselContext<T> {
+	private getCurrentContext(activeIndex: number, items: Array<T[]> | T[]): ICarouselContext<T> {
 		return {
-			$implicit: this.items[currentIndex],
-			index: currentIndex,
-			appCarousel: this.items,
+			$implicit: items[activeIndex],
+			index: activeIndex,
+			allIndexes: this.groupedItems.map((_, index) => index),
+			appCarouselOf: this.appCarouselOf as T[],
 			next: () => {
 				this.next();
 			},
 			back: this.back.bind(this),
+			selectIndex: (index: number) => {
+				this.selectIndex(index);
+			}
 		};
 	}
 
 	private next() {
 		const nextIndex = this.currentIndex$.value + 1;
+		console.log(nextIndex);
+		console.log(this.groupedItems);
 
-		this.currentIndex$.next(nextIndex < this.items.length ? nextIndex : 0);
+
+		if (!this.appCarouselOf?.length) {
+			return;
+		}
+
+		this.currentIndex$.next(nextIndex < this.appCarouselOf?.length ? nextIndex : 0);
 	}
 
 	private back() {
-		const previosIndex = this.currentIndex$.value - 1;
+		const prevIndex = this.currentIndex$.value - 1;
 
-		this.currentIndex$.next(previosIndex >= 0 ? previosIndex : this.items.length - 1);
+		if (!this.appCarouselOf?.length) {
+			return;
+		}
+
+		this.currentIndex$.next(prevIndex >= 0 ? prevIndex : this.appCarouselOf?.length - 1);
+	}
+
+	private selectIndex(index: number) {
+		this.currentIndex$.next(index);
 	}
 }

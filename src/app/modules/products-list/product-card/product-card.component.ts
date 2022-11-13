@@ -8,7 +8,7 @@ import { IProduct } from '../../../shared/products/product.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
-	@Input() product: IProduct | undefined;
+	@Input() product!: IProduct;
 	@Output() productBuy = new EventEmitter<IProduct['_id'] | undefined>();
 
 	get firstImgUrl(): string {
