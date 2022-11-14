@@ -7,18 +7,46 @@
         </div>
 </ng-template> -->
 <!-- <ng-template [ngIf]="product && [product, product]" [ngIfElse]="loader" let-defaultContext let-products="ngIf" let-name="toString"> -->
-<ng-template 
-        let-products
-        [ngIf]="product && [product, product]"
-        [ngIfElse]="loader"
->
-        <!-- {{defaultContext === products}} -->
+<div *ngIf="products; else loader" class="conteiner">
+    <ng-container 
+        *appPagination="
+            let productsGroup; 
+            of: products;
+            elementNum: 4;
+            let allIndexes = allIndexes;
+            let activeIndex = index;
+            let nextItem = next;
+            let backItem = back;
+            let getMasByIndex = getMasByIndex
+    ">
         <div class="container">
-                <app-product-card class="product" [product]="products[0]"></app-product-card>
-                <app-product-card class="product" [product]="products[1]"></app-product-card>
+            <app-product-card
+            *ngFor="let prod of productsGroup"
+                class="product" 
+                [product]="prod"
+            ></app-product-card>
         </div>
-</ng-template>
-
+        <div class="container-pagination">
+            <button mat-icon-button (click)="backItem()">
+                <mat-icon>
+                    chevron_left
+                </mat-icon>
+            </button>
+            <button 
+                mat-icon-button
+                *ngFor="let index of allIndexes"
+                (click)="getMasByIndex(index)"
+            >
+                {{ index + 1 }}
+            </button>            
+            <button mat-icon-button (click)="nextItem()">
+                <mat-icon>
+                    chevron_right
+                </mat-icon>
+            </button>
+        </div>
+      </ng-container>  
+</div>
 <ng-template #loader>
         <mat-spinner></mat-spinner>
 </ng-template>
