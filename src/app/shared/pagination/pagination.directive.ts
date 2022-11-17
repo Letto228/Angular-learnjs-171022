@@ -1,23 +1,25 @@
 import { Directive, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
+import { getGroupProdusts } from './get-group-products';
 
 interface IPaginationContext<T> {
 	$implicit: T[];
-	appPaginationOf: T[][];
+	appPaginationOf: T[];
   index: number | undefined;
   allIndexes: number[];
   next: () => void;
 	back: () => void;
-  getMasByIndex: (index: number) => void;
+  setGroupProdByIndex: (index: number) => void;
 }
 
 @Directive({
   selector: '[appPagination]'
 })
+
 export class PaginationDirective<T> implements OnInit, OnChanges{
   
   @Input() appPaginationOf: T[] | undefined;
-  @Input() appPaginationElementNum: number | undefined;
+  @Input() appPaginationElementNum = 1;
   
   private groupProd: T[][] = [];
   
@@ -34,15 +36,14 @@ export class PaginationDirective<T> implements OnInit, OnChanges{
   }
   
   ngOnChanges({appPaginationOf, appPaginationElementNum}: SimpleChanges) {   
-    if (!appPaginationOf?.currentValue) {
-      this.viewContainer.clear();
-      return
+    if (appPaginationOf && appPaginationElementNum) {
+      if (!appPaginationOf?.currentValue) {
+        this.viewContainer.clear();
+        return
+      }
+      this.currentIndex$.next(0);
+      this.groupProd = getGroupProdusts(appPaginationOf.currentValue, this.appPaginationElementNum);
     }
-
-    this.currentIndex$.next(0);
-    
-    let tempMas: T[] = appPaginationOf.currentValue;    
-    this.groupProd = this.getGroupProdusts(tempMas, appPaginationElementNum);
   }  
   
   private listenCurrentIndexChange() {
@@ -60,12 +61,12 @@ export class PaginationDirective<T> implements OnInit, OnChanges{
   private getCurrentContext(currentIndex: number): IPaginationContext<T> {
 		return {
 			$implicit: this.groupProd[currentIndex],
-			appPaginationOf: this.groupProd,
+			appPaginationOf: this.appPaginationOf as [],
       index: currentIndex,
       allIndexes: this.getAllIndexes(),
 			next: () => { this.next() },
-			back: () => { this.back.bind(this) },
-      getMasByIndex: (currIndex: number) => this.getMasByIndex(currIndex),
+			back: () => { this.back() },
+      setGroupProdByIndex: (currIndex: number) => { this.setGroupProdByIndex(currIndex) },
 		};
 	}
 
@@ -81,21 +82,11 @@ export class PaginationDirective<T> implements OnInit, OnChanges{
 		this.currentIndex$.next(previosIndex >= 0 ? previosIndex : this.groupProd.length - 1);
 	}
 
-  private getMasByIndex(index: number) {
-    this.currentIndex$.next(index);
+  private setGroupProdByIndex(index: number) {
+    return this.currentIndex$.next(index);
   }
 
   private getAllIndexes(): number[] {
     return this.groupProd.map((_, index) => index)
-  }
-
-  private getGroupProdusts(products: T[], elemNum: SimpleChange): any {
-    let newGroupProd: T[][] = [];
-    
-    while (products.length) {
-      newGroupProd.push(products.splice(0, elemNum.currentValue))
-    }
-
-    return newGroupProd;
   }
 }

@@ -17,7 +17,7 @@
             let activeIndex = index;
             let nextItem = next;
             let backItem = back;
-            let getMasByIndex = getMasByIndex
+            let setGroupProdByIndex = setGroupProdByIndex
     ">
         <div class="container">
             <app-product-card
@@ -35,7 +35,7 @@
             <button 
                 mat-icon-button
                 *ngFor="let index of allIndexes"
-                (click)="getMasByIndex(index)"
+                (click)="setGroupProdByIndex(index)"
             >
                 {{ index + 1 }}
             </button>            
