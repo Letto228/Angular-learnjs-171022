@@ -1,5 +1,6 @@
 import { Directive, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
+import { groupingItemsByElementsSize } from './grouping-items-by-elements-size'
 
 interface ICarouselContext<T> {
 	$implicit: T | T[];
@@ -54,24 +55,7 @@ export class CarouselDirective<T> implements OnInit, OnChanges, OnDestroy {
 	private getGroupedItems(items: T[]): Array<T[]> | T[] {
 		return this.appCarouselElementsSize <= 1
 			? items
-			: this.groupingItemsByElementsSize(items, this.appCarouselElementsSize);
-	}
-
-	private groupingItemsByElementsSize<T>(items: T[], elementsSize: number): Array<T[]> {
-		return items.reduce(
-			(groupedItems: Array<T[]>, item: T) => {
-				const groupedItemsLastIndex = groupedItems.length - 1;
-
-				if (groupedItems[groupedItemsLastIndex].length < elementsSize) {
-					groupedItems[groupedItemsLastIndex].push(item);
-
-					return groupedItems;
-				}
-
-				return [...groupedItems, [item]];
-			},
-			[[]],
-		);
+			: groupingItemsByElementsSize(items, this.appCarouselElementsSize);
 	}
 
 	private listenCurrentIndexChange() {

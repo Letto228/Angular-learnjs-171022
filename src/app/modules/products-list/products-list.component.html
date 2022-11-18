@@ -1,8 +1,8 @@
-<app-paginator [productTemplate]="productTemplate" [products]="products" >
-  <ng-template #productTemplate let-product>
-    <app-product-card class="product" [product]="product"></app-product-card>
-  </ng-template>
-</app-paginator>
+<app-paginator [productTemplate]="productTemplate" [products]="products"></app-paginator>
+
+<ng-template #productTemplate let-product="product">
+  <app-product-card class="product" [product]="product"></app-product-card>
+</ng-template>
 
 <ng-template #loader>
   <mat-spinner></mat-spinner>

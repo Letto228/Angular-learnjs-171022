@@ -21,12 +21,18 @@
 
   <ng-container *ngIf="productTemplate">
     <div class="container">
-      <ng-template
-        ngFor
-        [ngForOf]="pageProducts"
-        [ngForTemplate]="productTemplate">
-      </ng-template>
+      <ng-container
+        *ngFor="let product of pageProducts"
+        [ngTemplateOutlet]="productTemplate"
+        [ngTemplateOutletContext]="{ product: product }">
+      </ng-container>
     </div>
   </ng-container>
 
 </ng-container>
+
+<!-- <ng-template 
+  ngFor
+  [ngForOf]="pageProducts"
+  [ngForTemplate]="productTemplate">
+</ng-template> -->
