@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { NgClassModule } from './shared/ng-class/ng-class.module';
 import { InsertShadowModule } from './shared/insert-shadow/insert-shadow.module';
+import { InfiniteScrollingModule } from './shared/infinite-scrolling/infinite-scrolling.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { InsertShadowModule } from './shared/insert-shadow/insert-shadow.module'
 		MatInputModule,
 		NgClassModule,
 		InsertShadowModule,
+		InfiniteScrollingModule
 	],
 	bootstrap: [AppComponent],
 })

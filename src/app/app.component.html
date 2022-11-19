@@ -10,7 +10,7 @@
         <mat-label>Search</mat-label>
         <input #input matInput>
     </mat-form-field>
-    <app-products-list></app-products-list>
+    <app-products-list appInfiniteScrolling (loadData)="loadData($event)"></app-products-list>
     <!-- <p
         [ngClass]="{
             'search-active': +input.value >= 2,

@@ -22,7 +22,7 @@ import { PaginatorModule } from '../../shared/paginator/paginator.module';
 		MatProgressSpinnerModule,
 		CarouselModule,
 		MatSelectModule,
-		PaginatorModule
+		PaginatorModule,
 	],
 	exports: [ProductsListComponent],
 })

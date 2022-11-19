@@ -8,4 +8,8 @@ import { applicationConfigMock } from './shared/application-config/application-c
 })
 export class AppComponent {
 	readonly applicationConfig = applicationConfigMock;
+
+	loadData(event: string) {
+		console.log(event);
+	}
 }
