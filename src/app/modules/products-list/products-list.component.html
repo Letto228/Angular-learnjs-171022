@@ -3,8 +3,6 @@
 	<input #input matInput />
 </mat-form-field>
 
-{{ input.value }}
-
 <!-- {{value | toJson : 'prefix'}}
 {{getJson(value)}} -->
 <!-- {{ (products$ | async) | json }} -->
@@ -12,8 +10,8 @@
 
 <div *ngIf="products$ | async as products; else loader" class="container">
 	<ng-container
-		*appPagination="
-			let productsGroup of products | filterByParam: input.value:'name';
+	*appPagination="
+			let productsGroup of products | filterByParam: input.value;
 			elementsSize: 4;
 			let allIndexes = allIndexes;
 			let activeIndex = index;

@@ -12,6 +12,7 @@ import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { PaginationModule } from '../../shared/pagination/pagination.module';
 import { ToJsonModule } from '../../shared/to-json/to-json.module';
 import { ProductsStoreService } from '../../shared/products/products-store.service';
+import { FilterByParamModule } from 'src/app/shared/filter-by-param/filter-by-param.module';
 
 @NgModule({
 	declarations: [ProductsListComponent, ProductCardComponent],
@@ -26,6 +27,7 @@ import { ProductsStoreService } from '../../shared/products/products-store.servi
 		PaginationModule,
 		ToJsonModule,
 		MatInputModule,
+		FilterByParamModule
 	],
 	// providers: [
 	// 	{
