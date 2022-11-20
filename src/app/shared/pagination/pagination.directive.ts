@@ -37,7 +37,7 @@ export class PaginationDirective<T> implements OnInit, OnChanges{
   
   ngOnChanges({appPaginationOf, appPaginationElementNum}: SimpleChanges) {   
     if (appPaginationOf && appPaginationElementNum) {
-      if (!appPaginationOf?.currentValue) {
+      if (!this.appPaginationOf?.length) {
         this.viewContainer.clear();
         return
       }
