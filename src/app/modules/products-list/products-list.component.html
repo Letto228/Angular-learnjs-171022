@@ -11,7 +11,7 @@
 <div *ngIf="products$ | async as products; else loader" class="container">
 	<ng-container
 	*appPagination="
-			let productsGroup of products | filterByParam: input.value;
+			let productsGroup of products | filterByParam: input.value : 'feedbacksCount';
 			elementsSize: 4;
 			let allIndexes = allIndexes;
 			let activeIndex = index;
