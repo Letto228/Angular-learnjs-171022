@@ -1,9 +1,9 @@
 <mat-form-field appearance="fill" class="example-full-width">
 	<mat-label>Search</mat-label>
-	<input #input matInput />
+	<input #searchValue matInput />
 </mat-form-field>
 
-{{ input.value }}
+{{ searchValue.value }}
 
 <!-- {{value | toJson : 'prefix'}}
 {{getJson(value)}} -->
@@ -13,7 +13,7 @@
 <div *ngIf="products$ | async as products; else loader" class="container">
 	<ng-container
 		*appPagination="
-			let productsGroup of products;
+			let productsGroup of products | filter: searchValue.value: 'name';
 			elementsSize: 4;
 			let allIndexes = allIndexes;
 			let activeIndex = index;

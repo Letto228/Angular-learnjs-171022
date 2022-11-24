@@ -11,7 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CarouselModule } from '../../shared/carousel/carousel.module';
 import { PaginationModule } from '../../shared/pagination/pagination.module';
 import { ToJsonModule } from '../../shared/to-json/to-json.module';
-import { ProductsStoreService } from '../../shared/products/products-store.service';
+import { FilterModule } from 'src/app/shared/filter/filter.module';
 
 @NgModule({
 	declarations: [ProductsListComponent, ProductCardComponent],
@@ -26,6 +26,7 @@ import { ProductsStoreService } from '../../shared/products/products-store.servi
 		PaginationModule,
 		ToJsonModule,
 		MatInputModule,
+		FilterModule,
 	],
 	// providers: [
 	// 	{
