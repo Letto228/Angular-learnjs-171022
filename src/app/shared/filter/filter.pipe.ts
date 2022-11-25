@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
     return items.filter(item => { 
               return (typeof item[searchingProperty] === 'string') 
                         ? (item[searchingProperty] as unknown as string).toUpperCase().includes((searchValue as unknown as string).toUpperCase())
-                        : true
+                        : searchValue === item[searchingProperty]
               });
   }
 
