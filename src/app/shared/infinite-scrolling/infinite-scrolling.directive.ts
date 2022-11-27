@@ -1,4 +1,7 @@
 import { Directive, HostListener, ElementRef, Output, EventEmitter } from '@angular/core';
+import { LoadDirection } from './load-direction.enum';
+
+const borderOffset = 100;
 
 @Directive({
   selector: '[appInfiniteScrolling]'
@@ -10,16 +13,20 @@ export class InfiniteScrollingDirective {
     const borderTopOffset = element.scrollTop; 
     const borderBottomOffset = element.scrollHeight - element.scrollTop - element.clientHeight; 
 
-    if(borderTopOffset < 100) {
-      this.loadData.emit('top');
+    if(borderTopOffset < borderOffset) {
+      this.loadData.emit(LoadDirection.Top);
+
+      return;
     }
 
-    if(borderBottomOffset < 100) {
-      this.loadData.emit('bottom');
+    if(borderBottomOffset < borderOffset) {
+      this.loadData.emit(LoadDirection.Bottom);
+
+      return;
     }
   }
 
-  @Output() loadData = new EventEmitter<string>();
+  @Output() loadData = new EventEmitter<LoadDirection>();
 
   constructor(private el: ElementRef) { }
 
